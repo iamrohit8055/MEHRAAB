@@ -1,6 +1,7 @@
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { CulinaryMenu } from './components/CulinaryMenu'
+import { ArchitectureSpaces } from './components/ArchitectureSpaces'
 
 export default function App() {
   return (
@@ -15,6 +16,9 @@ export default function App() {
 
         {/* Culinary Philosophy & Signature Menu */}
         <CulinaryMenu />
+
+        {/* Architectural Spaces & Heritage Gallery */}
+        <ArchitectureSpaces />
       </main>
     </div>
   )
