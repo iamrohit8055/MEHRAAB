@@ -70,7 +70,7 @@ export function ReservationSection() {
   return (
     <section
       id="reservations"
-      className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15 overflow-hidden"
+      className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15 overflow-hidden scroll-mt-20"
     >
       {/* Subtle ambient lighting */}
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
@@ -227,7 +227,7 @@ export function ReservationSection() {
                 </div>
 
                 {/* Step 3: Space Preference */}
-                <div id="private-dining">
+                <div>
                   <label className="block text-xs uppercase tracking-[0.25em] text-gold font-sans mb-3">
                     04 · Preferred Pavilion or Room
                   </label>

@@ -10,7 +10,7 @@ export function CulinaryMenu() {
       : SIGNATURE_DISHES.filter((dish) => dish.category === activeCategory)
 
   return (
-    <section id="menu" className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15">
+    <section id="experience" className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15 scroll-mt-20">
       {/* Decorative ambient background glows */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-80 h-80 bg-espresso/30 rounded-full blur-3xl pointer-events-none" />
@@ -21,7 +21,7 @@ export function CulinaryMenu() {
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="w-8 h-[1px] bg-gold/50" />
             <span className="text-[11px] uppercase tracking-[0.35em] text-gold font-sans font-light">
-              Culinary Philosophy
+              The Experience · Culinary Philosophy
             </span>
             <span className="w-8 h-[1px] bg-gold/50" />
           </div>
@@ -40,9 +40,10 @@ export function CulinaryMenu() {
 
         {/* Category Tabs */}
         <div
+          id="menu"
           role="tablist"
           aria-label="Menu Categories"
-          className="flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto pb-4 mb-14 no-scrollbar border-b border-gold/15"
+          className="scroll-mt-28 flex items-center justify-start sm:justify-center gap-2 sm:gap-4 overflow-x-auto pb-4 mb-14 no-scrollbar border-b border-gold/15"
         >
           {MENU_CATEGORIES.map((category) => {
             const isSelected = activeCategory === category.id

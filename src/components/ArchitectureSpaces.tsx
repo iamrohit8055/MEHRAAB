@@ -10,7 +10,7 @@ export function ArchitectureSpaces() {
   return (
     <section
       id="architecture"
-      className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15 overflow-hidden"
+      className="relative py-24 sm:py-32 bg-obsidian text-ivory border-t border-gold/15 overflow-hidden scroll-mt-20"
     >
       {/* Decorative background radial ambient glow */}
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-espresso/40 rounded-full blur-3xl pointer-events-none" />
@@ -18,7 +18,7 @@ export function ArchitectureSpaces() {
 
       <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
         {/* Section Header */}
-        <div id="experience" className="max-w-3xl mb-16 sm:mb-20">
+        <div className="max-w-3xl mb-16 sm:mb-20">
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="w-8 h-[1px] bg-gold/50" />
             <span className="text-[11px] uppercase tracking-[0.35em] text-gold font-sans font-light">
