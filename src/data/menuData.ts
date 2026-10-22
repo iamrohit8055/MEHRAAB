@@ -43,19 +43,19 @@ export const SIGNATURE_DISHES: MenuItem[] = [
   {
     id: 'smoked-dal-mehraab',
     name: 'Dal Mehraab (24-Hour Charcoal Smoked)',
-    subtitle: 'Black Urad Lentils · White Makhan · Damask Rose Smoke',
+    subtitle: 'Black Urad Lentils · Cultured Makhan · Damask Rose Smoke',
     description:
-      'Slow-simmered over live acacia embers for twenty-four uninterrupted hours with hand-churned white butter, finished with an applewood and dried damask rose petal dhungar smoke.',
+      'Slow-simmered over live acacia embers for twenty-four uninterrupted hours with hand-churned white butter and sun-dried kasuri methi, finished with an applewood and dried damask rose petal dhungar smoke.',
     price: '₹950',
     category: 'mains',
     dietary: 'veg',
     isSignature: true,
     image:
-      'https://images.unsplash.com/photo-1546833999-b9f581a1996d?auto=format&fit=crop&w=1200&q=80',
-    flavorNotes: ['Smoked Applewood', 'Velvety Cream', 'Sun-Dried Rose Petals'],
+      'https://images.unsplash.com/photo-1789983665266-f1a6ea13b311?auto=format&fit=crop&w=1200&q=85',
+    flavorNotes: ['Velvety Cultured Cream', 'Applewood Embers', 'Kasuri Methi', 'Sun-Dried Rose Petals'],
     pairing: 'Smoked Kashmiri Walnut Old Fashioned',
     origin: 'Heritage Hearth, Northern Punjab Borderlands',
-    ritual: 'Infused table-side under an antique perforated cloche with burning red charcoal embers.',
+    ritual: 'Infused table-side under an antique perforated brass cloche with live acacia charcoal embers and melting churned white butter.',
   },
   {
     id: 'nalli-nihari',

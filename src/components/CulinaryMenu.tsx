@@ -197,7 +197,7 @@ export function CulinaryMenu() {
               <img
                 src={selectedDish.image}
                 alt={selectedDish.name}
-                className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.1]"
+                className="w-full h-full object-cover object-center filter brightness-[0.96] contrast-[1.08] saturate-[1.12]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#1c1c1c] via-[#1c1c1c]/40 to-transparent" />
 
@@ -306,7 +306,7 @@ function DishCard({
         <img
           src={dish.image}
           alt={dish.name}
-          className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.1] transition-transform duration-700 ease-out group-hover:scale-105"
+          className="w-full h-full object-cover object-center filter brightness-[0.96] contrast-[1.08] saturate-[1.12] transition-transform duration-700 ease-out group-hover:scale-105"
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/30 to-transparent opacity-90" />
