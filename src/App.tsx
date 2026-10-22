@@ -2,6 +2,8 @@ import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
 import { CulinaryMenu } from './components/CulinaryMenu'
 import { ArchitectureSpaces } from './components/ArchitectureSpaces'
+import { ReservationSection } from './components/ReservationSection'
+import { Footer } from './components/Footer'
 
 export default function App() {
   return (
@@ -19,7 +21,13 @@ export default function App() {
 
         {/* Architectural Spaces & Heritage Gallery */}
         <ArchitectureSpaces />
+
+        {/* Table & Salon Reservations Experience */}
+        <ReservationSection />
       </main>
+
+      {/* Editorial Luxury Footer */}
+      <Footer />
     </div>
   )
 }
