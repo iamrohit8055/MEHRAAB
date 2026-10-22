@@ -1,5 +1,6 @@
 import { Navbar } from './components/Navbar'
 import { Hero } from './components/Hero'
+import { CulinaryMenu } from './components/CulinaryMenu'
 
 export default function App() {
   return (
@@ -9,8 +10,11 @@ export default function App() {
 
       {/* Main Content Landmark */}
       <main className="flex-1 flex flex-col">
-        {/* Phase 2 Visual Milestone: Cinematic Hero Section */}
+        {/* Cinematic Hero Section */}
         <Hero />
+
+        {/* Culinary Philosophy & Signature Menu */}
+        <CulinaryMenu />
       </main>
     </div>
   )
