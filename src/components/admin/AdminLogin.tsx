@@ -46,9 +46,9 @@ export function AdminLogin({ onLoginSuccess, onReturnHome }: AdminLoginProps) {
   }
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4 py-16">
+    <div className="min-h-[80vh] flex items-center justify-center px-3 sm:px-4 py-8 sm:py-16">
       {/* Background arch watermark */}
-      <div className="relative w-full max-w-md bg-espresso/30 border border-gold/30 rounded-xs p-8 sm:p-10 backdrop-blur-md shadow-2xl shadow-obsidian">
+      <div className="relative w-full max-w-md bg-espresso/30 border border-gold/30 rounded-xs p-5 sm:p-8 md:p-10 backdrop-blur-md shadow-2xl shadow-obsidian">
         {/* Subtle Arch Ornament */}
         <div className="text-center mb-8">
           <div className="w-12 h-14 mx-auto mb-4 text-gold flex items-center justify-center">

@@ -181,19 +181,19 @@ export function AdminDashboard() {
   return (
     <div className="min-h-screen bg-obsidian text-ivory font-sans selection:bg-gold selection:text-obsidian flex flex-col">
       {/* Admin Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-obsidian/95 backdrop-blur-md border-b border-gold/20 py-4 shadow-xl shadow-obsidian">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+      <header className="sticky top-0 z-40 bg-obsidian/95 backdrop-blur-md border-b border-gold/20 py-2.5 sm:py-4 shadow-xl shadow-obsidian">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-4 shrink-0">
             <BrandLogo size="sm" showDescriptor={false} />
-            <div className="h-6 w-[1px] bg-gold/30 hidden sm:block" />
-            <span className="hidden sm:inline font-sans text-xs uppercase tracking-[0.25em] text-gold/90 font-medium">
+            <div className="h-5 sm:h-6 w-[1px] bg-gold/30 hidden md:block" />
+            <span className="hidden md:inline font-sans text-xs uppercase tracking-[0.25em] text-gold/90 font-medium truncate">
               Maître D' Run Sheet & Console
             </span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 flex-wrap justify-end">
             {/* Staff Profile Badge */}
-            <div className="hidden md:flex items-center gap-2 text-xs font-sans text-ivory/80 bg-espresso/40 border border-gold/20 px-3 py-1.5 rounded-xs">
+            <div className="hidden lg:flex items-center gap-2 text-xs font-sans text-ivory/80 bg-espresso/40 border border-gold/20 px-2.5 py-1.5 rounded-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-400" />
               <span>{currentUser?.name || 'Staff Maître D’'}</span>
               <span className="text-[10px] text-gold uppercase tracking-wider font-mono">
@@ -205,44 +205,52 @@ export function AdminDashboard() {
             <button
               type="button"
               onClick={() => setIsBriefingOpen(true)}
-              className="px-3.5 py-1.5 bg-gold/15 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian text-xs uppercase tracking-[0.18em] font-sans rounded-xs transition-colors flex items-center gap-1.5 font-medium shadow-xs"
+              className="px-2 sm:px-3 py-1.5 bg-gold/15 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian text-[11px] sm:text-xs uppercase tracking-wider font-sans rounded-xs transition-colors flex items-center gap-1 font-medium shadow-xs"
               title="Open printable Kitchen & Captains Daily Service Briefing Sheet"
             >
-              <span>📋 Service Briefing</span>
+              <span>📋</span>
+              <span className="hidden sm:inline">Briefing</span>
             </button>
 
             {/* Dispatches Drawer */}
             <button
               type="button"
               onClick={() => setIsLogsOpen(true)}
-              className="px-3.5 py-1.5 border border-gold/40 text-gold hover:bg-gold/10 text-xs uppercase tracking-[0.18em] font-sans rounded-xs transition-colors flex items-center gap-1.5"
+              className="px-2 sm:px-3 py-1.5 border border-gold/40 text-gold hover:bg-gold/10 text-[11px] sm:text-xs uppercase tracking-wider font-sans rounded-xs transition-colors flex items-center gap-1"
+              title="Automated guest dispatches & live SMS audit"
             >
-              <span>✉️ Dispatches</span>
+              <span>✉️</span>
+              <span className="hidden sm:inline">Dispatches</span>
+              <span className="sm:hidden">Logs</span>
             </button>
 
             {/* View Sanctuary (Public Site) */}
             <button
               type="button"
               onClick={() => navigateTo('home')}
-              className="px-3.5 py-1.5 border border-gold/40 text-gold hover:bg-gold/10 text-xs uppercase tracking-[0.18em] font-sans rounded-xs transition-colors"
+              className="px-2 sm:px-3 py-1.5 border border-gold/40 text-gold hover:bg-gold/10 text-[11px] sm:text-xs uppercase tracking-wider font-sans rounded-xs transition-colors"
+              title="Return to guest-facing sanctuary"
             >
-              ← Guest Site
+              <span className="hidden sm:inline">← Guest Site</span>
+              <span className="sm:hidden">← Site</span>
             </button>
 
             {/* Logout */}
             <button
               type="button"
               onClick={handleLogout}
-              className="px-3.5 py-1.5 bg-espresso/50 border border-rose-500/30 text-rose-300 hover:bg-rose-950/40 text-xs uppercase tracking-[0.18em] font-sans rounded-xs transition-colors"
+              className="px-2 sm:px-3 py-1.5 bg-espresso/50 border border-rose-500/30 text-rose-300 hover:bg-rose-950/40 text-[11px] sm:text-xs uppercase tracking-wider font-sans rounded-xs transition-colors"
+              title="Sign out of Maître D' console"
             >
-              Sign Out
+              <span className="hidden sm:inline">Sign Out</span>
+              <span className="sm:hidden">Exit</span>
             </button>
           </div>
         </div>
       </header>
 
       {/* Main Admin Content Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-6 sm:px-8 lg:px-12 py-8 sm:py-10">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-8">
         {/* Metric Cards */}
         <AdminStats stats={stats} isLoading={isLoading} />
 

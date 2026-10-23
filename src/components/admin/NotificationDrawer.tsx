@@ -148,18 +148,18 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
       onClick={onClose}
     >
       <div
-        className="w-full max-w-xl h-full bg-[#181818] border-l border-gold/30 shadow-2xl p-6 sm:p-8 flex flex-col justify-between overflow-hidden"
+        className="w-full max-w-xl h-full bg-[#181818] border-l border-gold/30 shadow-2xl p-4 sm:p-6 lg:p-8 flex flex-col justify-between overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-gold/20">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gold/20">
           <div>
             <span className="text-[10px] uppercase tracking-[0.25em] text-gold font-sans block mb-1">
               Automated Guest Communications
             </span>
-            <h3 className="font-serif text-2xl text-ivory">Dispatch Audit Logs</h3>
+            <h3 className="font-serif text-xl sm:text-2xl text-ivory">Dispatch Audit Logs</h3>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 shrink-0 ml-2">
             <button
               type="button"
               onClick={() => {
@@ -216,14 +216,14 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
           </div>
 
           {/* Setup Guide Button */}
-          <div className="flex items-center justify-between text-[11px] font-sans">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-[11px] font-sans">
             <span className="text-ivory/50">
               {gateway?.sms.configured ? '✓ Direct mobile cell delivery active' : 'Simulation mode: Add key to send to real phones'}
             </span>
             <button
               type="button"
               onClick={() => setShowConfigGuide(!showConfigGuide)}
-              className="text-gold hover:underline tracking-wider uppercase font-semibold"
+              className="text-gold hover:underline tracking-wider uppercase font-semibold text-left sm:text-right"
             >
               {showConfigGuide ? 'Hide Setup' : '⚙️ Setup Live SMS Key'}
             </button>
@@ -243,7 +243,7 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
 
         {/* Live Test Send Section (Email + SMS) */}
         <div className="py-2">
-          <form onSubmit={handleTestSend} className="p-3 bg-obsidian/70 border border-gold/20 rounded-xs space-y-2">
+          <form onSubmit={handleTestSend} className="p-2.5 sm:p-3 bg-obsidian/70 border border-gold/20 rounded-xs space-y-2">
             <div className="text-[10px] uppercase tracking-wider text-gold font-sans font-semibold">
               Live Test Dispatcher (Email + Mobile SMS)
             </div>
@@ -263,14 +263,14 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
                 className="bg-black/50 border border-gold/25 text-ivory px-3 py-1.5 text-xs font-sans rounded-xs focus:outline-none focus:border-gold"
               />
             </div>
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
               <span className="text-[10px] text-ivory/50 font-sans">
                 Attempts live dispatch via active gateways + logs to SQLite.
               </span>
               <button
                 type="submit"
                 disabled={isTesting}
-                className="px-4 py-1.5 bg-gold text-obsidian font-sans text-xs uppercase tracking-wider font-semibold hover:bg-ivory transition-colors rounded-xs disabled:opacity-50 shrink-0 shadow-sm"
+                className="w-full sm:w-auto px-4 py-1.5 bg-gold text-obsidian font-sans text-xs uppercase tracking-wider font-semibold hover:bg-ivory transition-colors rounded-xs disabled:opacity-50 shrink-0 shadow-sm text-center"
               >
                 {isTesting ? 'Dispatching...' : '⚡ Test Send Now'}
               </button>
@@ -365,7 +365,7 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
                       {(() => {
                         const cleanSms = log.content.replace(/^⚠️ Gateway Alert:.*?\n\n/s, '')
                         return (
-                          <div className="flex items-center gap-3 pt-0.5">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-3 pt-0.5">
                             <a
                               href={`https://wa.me/${log.recipient.replace(/\D/g, '')}?text=${encodeURIComponent(cleanSms)}`}
                               target="_blank"
@@ -418,30 +418,30 @@ export function NotificationDrawer({ isOpen, onClose, token }: NotificationDrawe
       {selectedEmail && (
         <div
           role="dialog"
-          className="fixed inset-0 z-60 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
+          className="fixed inset-0 z-60 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md"
           onClick={() => setSelectedEmail(null)}
         >
           <div
             className="w-full max-w-2xl bg-[#121212] border border-gold/40 rounded-xs overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between p-4 bg-espresso/50 border-b border-gold/20">
-              <span className="text-xs font-sans text-gold uppercase tracking-wider">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-espresso/50 border-b border-gold/20">
+              <span className="text-xs font-sans text-gold uppercase tracking-wider truncate mr-2">
                 Email Preview: {selectedEmail.recipient}
               </span>
               <button
                 type="button"
                 onClick={() => setSelectedEmail(null)}
-                className="text-ivory hover:text-gold text-sm"
+                className="text-ivory hover:text-gold text-sm shrink-0"
               >
                 ✕
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-4 bg-[#141414]">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-4 bg-[#141414]">
               <iframe
                 title="Email Preview"
                 srcDoc={selectedEmail.content}
-                className="w-full h-[520px] rounded border border-zinc-800 bg-[#171717]"
+                className="w-full h-[360px] sm:h-[520px] rounded border border-zinc-800 bg-[#171717]"
               />
             </div>
           </div>

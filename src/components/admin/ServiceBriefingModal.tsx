@@ -159,26 +159,26 @@ export function ServiceBriefingModal({
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-6xl rounded-xs shadow-2xl p-4 sm:p-8 my-6 max-h-[94vh] overflow-y-auto flex flex-col justify-between bg-[#171614] text-ivory border border-gold/40 transition-colors"
+        className="relative w-full max-w-6xl rounded-xs shadow-2xl p-3.5 sm:p-6 lg:p-8 my-3 sm:my-6 max-h-[94vh] overflow-y-auto flex flex-col justify-between bg-[#171614] text-ivory border border-gold/40 transition-colors"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Control Bar */}
-        <div className="pb-6 mb-6 border-b border-gold/20 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-3">
+        <div className="pb-4 mb-4 sm:pb-6 sm:mb-6 border-b border-gold/20 flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {/* Document Title Badge */}
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-gold" />
-              <span className="text-[11px] uppercase tracking-[0.25em] text-gold font-sans font-semibold">
+              <span className="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] sm:tracking-[0.25em] text-gold font-sans font-semibold">
                 Daily Service Briefing
               </span>
             </div>
 
             {/* Quick Date Switcher Pills */}
-            <div className="flex flex-wrap items-center gap-1.5 bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-xs font-sans">
+            <div className="flex flex-wrap items-center gap-1 sm:gap-1.5 bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-[11px] sm:text-xs font-sans">
               <button
                 type="button"
                 onClick={() => setFilterDate('ALL')}
-                className={`px-3 py-1 rounded-xs transition-colors text-xs ${
+                className={`px-2 sm:px-3 py-1 rounded-xs transition-colors ${
                   filterDate === 'ALL'
                     ? 'bg-gold text-obsidian font-semibold'
                     : 'text-ivory/70 hover:text-gold'
@@ -194,7 +194,7 @@ export function ServiceBriefingModal({
                     key={d}
                     type="button"
                     onClick={() => setFilterDate(d)}
-                    className={`px-2.5 py-1 rounded-xs transition-colors font-mono text-[11px] ${
+                    className={`px-2 sm:px-2.5 py-1 rounded-xs transition-colors font-mono text-[10px] sm:text-[11px] ${
                       isSelected
                         ? 'bg-gold text-obsidian font-semibold'
                         : 'text-ivory/70 hover:text-gold'
@@ -207,63 +207,71 @@ export function ServiceBriefingModal({
             </div>
 
             {/* View Mode Switcher */}
-            <div className="inline-flex bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-xs font-sans">
+            <div className="inline-flex bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-[11px] sm:text-xs font-sans">
               <button
                 type="button"
                 onClick={() => setViewMode('pdf')}
-                className={`px-3 py-1 rounded-xs transition-colors flex items-center gap-1.5 ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xs transition-colors flex items-center gap-1 sm:gap-1.5 ${
                   viewMode === 'pdf'
                     ? 'bg-gold text-obsidian font-semibold'
                     : 'text-ivory/70 hover:text-gold'
                 }`}
               >
-                <span>📄 Standalone Vector PDF</span>
+                <span>📄</span>
+                <span className="hidden sm:inline">Standalone Vector PDF</span>
+                <span className="sm:hidden">PDF</span>
               </button>
               <button
                 type="button"
                 onClick={() => setViewMode('summary')}
-                className={`px-3 py-1 rounded-xs transition-colors flex items-center gap-1.5 ${
+                className={`px-2.5 sm:px-3 py-1 rounded-xs transition-colors flex items-center gap-1 sm:gap-1.5 ${
                   viewMode === 'summary'
                     ? 'bg-gold text-obsidian font-semibold'
                     : 'text-ivory/70 hover:text-gold'
                 }`}
               >
-                <span>📊 Interactive Dossier</span>
+                <span>📊</span>
+                <span className="hidden sm:inline">Interactive Dossier</span>
+                <span className="sm:hidden">Dossier</span>
               </button>
             </div>
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
             <a
               href={pdfUrl}
               download={`MEHRAAB-Service-Briefing-${filterDate}.pdf`}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-gold text-obsidian text-xs font-sans uppercase tracking-[0.18em] font-semibold rounded-xs hover:bg-ivory transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 bg-gold text-obsidian text-[11px] sm:text-xs font-sans uppercase tracking-wider font-semibold rounded-xs hover:bg-ivory transition-colors shadow-sm"
             >
-              <span>📥 Download Official PDF</span>
+              <span>📥</span>
+              <span className="hidden sm:inline">Download Official PDF</span>
+              <span className="sm:hidden">PDF</span>
             </a>
 
             <button
               type="button"
               onClick={handleOpenPdf}
-              className="inline-flex items-center gap-1.5 px-3 py-2 bg-gold/15 hover:bg-gold hover:text-obsidian border border-gold/40 text-gold text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 bg-gold/15 hover:bg-gold hover:text-obsidian border border-gold/40 text-gold text-[11px] sm:text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
             >
-              <span>↗ Open Fullscreen PDF</span>
+              <span>↗</span>
+              <span className="hidden sm:inline">Open Fullscreen PDF</span>
+              <span className="sm:hidden">View</span>
             </button>
 
             <button
               type="button"
               onClick={handleCopyText}
-              className="inline-flex items-center gap-1.5 px-3 py-2 border border-gold/30 bg-espresso/40 text-ivory/80 hover:text-gold text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
+              className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 sm:py-2 border border-gold/30 bg-espresso/40 text-ivory/80 hover:text-gold text-[11px] sm:text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
             >
-              <span>{copied ? '✓ Copied' : '📋 Copy Text'}</span>
+              <span>{copied ? '✓ Copied' : '📋 Copy'}</span>
             </button>
 
             <button
               type="button"
               onClick={onClose}
               aria-label="Close run sheet"
-              className="w-8 h-8 rounded-full border border-gold/30 text-ivory hover:text-gold flex items-center justify-center transition-colors text-sm"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-gold/30 text-ivory hover:text-gold flex items-center justify-center transition-colors text-xs sm:text-sm shrink-0 ml-auto sm:ml-0"
             >
               ✕
             </button>
@@ -300,7 +308,7 @@ export function ServiceBriefingModal({
               </div>
             </div>
 
-            <div className="relative w-full h-[68vh] rounded-xs overflow-hidden border border-gold/30 bg-white shadow-2xl">
+            <div className="relative w-full h-[52vh] sm:h-[68vh] rounded-xs overflow-hidden border border-gold/30 bg-white shadow-2xl">
               <iframe
                 src={`${pdfUrl}#toolbar=1&navpanes=0&scrollbar=1`}
                 title="Service Briefing Standalone PDF"

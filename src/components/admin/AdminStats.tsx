@@ -43,28 +43,28 @@ export function AdminStats({ stats, isLoading }: AdminStatsProps) {
   ]
 
   return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
       {cards.map((card) => (
         <div
           key={card.label}
-          className={`bg-espresso/25 border ${card.accent} rounded-xs p-5 sm:p-6 backdrop-blur-sm relative overflow-hidden transition-all duration-300 hover:bg-espresso/35`}
+          className={`bg-espresso/25 border ${card.accent} rounded-xs p-3.5 sm:p-5 lg:p-6 backdrop-blur-sm relative overflow-hidden transition-all duration-300 hover:bg-espresso/35`}
         >
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-ivory/60 font-sans font-light">
+          <div className="flex items-center justify-between mb-2 sm:mb-3 gap-1">
+            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.15em] sm:tracking-[0.25em] text-ivory/60 font-sans font-light truncate">
               {card.label}
             </span>
-            <span className={`text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-xs font-sans ${card.pill}`}>
+            <span className={`text-[8px] sm:text-[9px] uppercase tracking-wider px-1.5 sm:px-2 py-0.5 rounded-xs font-sans shrink-0 ${card.pill}`}>
               Live
             </span>
           </div>
 
           <div className="flex items-baseline gap-2">
-            <span className="font-serif text-3xl sm:text-4xl font-light text-ivory">
+            <span className="font-serif text-2xl sm:text-3xl lg:text-4xl font-light text-ivory">
               {isLoading ? '...' : card.value}
             </span>
           </div>
 
-          <p className="text-[11px] font-sans text-ivory/50 mt-1 font-light">
+          <p className="text-[10px] sm:text-[11px] font-sans text-ivory/50 mt-0.5 sm:mt-1 font-light truncate">
             {card.sub}
           </p>
         </div>

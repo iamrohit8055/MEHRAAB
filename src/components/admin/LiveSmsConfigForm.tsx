@@ -78,12 +78,12 @@ export function LiveSmsConfigForm({ token, onSaved }: LiveSmsConfigFormProps) {
   }
 
   return (
-    <div className="p-4 bg-obsidian/90 border border-gold/30 rounded-xs space-y-3 font-sans text-xs">
-      <div className="flex items-center justify-between border-b border-gold/15 pb-2">
+    <div className="p-3 sm:p-4 bg-obsidian/90 border border-gold/30 rounded-xs space-y-3 font-sans text-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gold/15 pb-2">
         <span className="text-[10px] uppercase tracking-wider text-gold font-semibold">
           Configure Live Dispatch Gateways
         </span>
-        <div className="flex gap-1">
+        <div className="flex flex-wrap gap-1">
           <button
             type="button"
             onClick={() => setProviderTab('fast2sms')}

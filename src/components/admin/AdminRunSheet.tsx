@@ -139,25 +139,25 @@ export function AdminRunSheet({
   }
 
   return (
-    <div className="bg-espresso/20 border border-gold/25 rounded-xs p-6 sm:p-8 backdrop-blur-sm">
+    <div className="bg-espresso/20 border border-gold/25 rounded-xs p-3.5 sm:p-6 lg:p-8 backdrop-blur-sm">
       {/* Run Sheet Header & Quick Controls */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-gold/15">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 sm:gap-4 pb-4 sm:pb-6 border-b border-gold/15">
         <div>
-          <span className="text-[10px] uppercase tracking-[0.3em] text-gold font-sans block mb-1">
+          <span className="text-[10px] uppercase tracking-[0.25em] sm:tracking-[0.3em] text-gold font-sans block mb-1">
             Table Run Sheet & Service Registry
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl font-light text-ivory">
+          <h2 className="font-serif text-xl sm:text-2xl md:text-3xl font-light text-ivory">
             Diner Allocations ({filtered.length})
           </h2>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           {/* Quick Date Switcher */}
-          <div className="inline-flex bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-xs font-sans">
+          <div className="inline-flex bg-obsidian/80 border border-gold/20 rounded-xs p-1 text-[11px] sm:text-xs font-sans">
             <button
               type="button"
               onClick={() => setSelectedDate(today)}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xs transition-colors ${
                 selectedDate === today ? 'bg-gold text-obsidian font-semibold' : 'text-ivory/70 hover:text-gold'
               }`}
             >
@@ -166,7 +166,7 @@ export function AdminRunSheet({
             <button
               type="button"
               onClick={() => setSelectedDate(tomorrow)}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xs transition-colors ${
                 selectedDate === tomorrow ? 'bg-gold text-obsidian font-semibold' : 'text-ivory/70 hover:text-gold'
               }`}
             >
@@ -175,7 +175,7 @@ export function AdminRunSheet({
             <button
               type="button"
               onClick={() => setSelectedDate('ALL')}
-              className={`px-3 py-1.5 rounded-xs transition-colors ${
+              className={`px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xs transition-colors ${
                 selectedDate === 'ALL' ? 'bg-gold text-obsidian font-semibold' : 'text-ivory/70 hover:text-gold'
               }`}
             >
@@ -188,7 +188,7 @@ export function AdminRunSheet({
             type="button"
             onClick={onRefresh}
             title="Refresh run sheet"
-            className="p-2 border border-gold/30 text-gold hover:bg-gold/10 rounded-xs transition-colors"
+            className="p-1.5 sm:p-2 border border-gold/30 text-gold hover:bg-gold/10 rounded-xs transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -200,16 +200,18 @@ export function AdminRunSheet({
             type="button"
             onClick={onOpenBriefing}
             title="Open Kitchen & Captains Daily Service Run Sheet Briefing"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-espresso/50 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian font-sans text-xs uppercase tracking-[0.18em] font-semibold rounded-xs transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 bg-espresso/50 border border-gold/40 text-gold hover:bg-gold hover:text-obsidian font-sans text-[11px] sm:text-xs uppercase tracking-wider font-semibold rounded-xs transition-colors shadow-sm"
           >
-            <span>🖨️ Daily Briefing</span>
+            <span>🖨️</span>
+            <span className="hidden sm:inline">Daily Briefing</span>
+            <span className="sm:hidden">Briefing</span>
           </button>
 
           {/* New Walk-in Button */}
           <button
             type="button"
             onClick={onOpenWalkIn}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gold text-obsidian font-sans text-xs uppercase tracking-[0.2em] font-semibold hover:bg-ivory transition-colors rounded-xs shadow-md"
+            className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gold text-obsidian font-sans text-[11px] sm:text-xs uppercase tracking-wider font-semibold hover:bg-ivory transition-colors rounded-xs shadow-md"
           >
             <span>+ Walk-in</span>
           </button>
@@ -217,9 +219,9 @@ export function AdminRunSheet({
       </div>
 
       {/* Filter Ribbon: Status Tabs & Search */}
-      <div className="py-4 flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gold/10 text-xs font-sans">
+      <div className="py-3 sm:py-4 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 border-b border-gold/10 text-xs font-sans">
         {/* Status Filters */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
+        <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 md:pb-0 -mx-3.5 px-3.5 sm:mx-0 sm:px-0 no-scrollbar">
           {[
             { id: 'ALL', label: 'ALL', count: statusCounts.ALL },
             { id: 'PENDING', label: 'PENDING', count: statusCounts.PENDING },
@@ -234,7 +236,7 @@ export function AdminRunSheet({
                 key={st.id}
                 type="button"
                 onClick={() => handleSelectStatus(st.id)}
-                className={`px-3 py-1.5 rounded-xs transition-all uppercase tracking-wider text-[11px] whitespace-nowrap flex items-center gap-1.5 ${
+                className={`shrink-0 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xs transition-all uppercase tracking-wider text-[10px] sm:text-[11px] whitespace-nowrap flex items-center gap-1.5 ${
                   isSelected
                     ? 'bg-espresso/60 text-gold border border-gold/40 font-medium'
                     : 'text-ivory/60 hover:text-ivory border border-transparent hover:border-gold/20'
@@ -256,13 +258,13 @@ export function AdminRunSheet({
         </div>
 
         {/* Search Input */}
-        <div className="relative min-w-[260px]">
+        <div className="relative w-full md:w-72 shrink-0">
           <input
             type="text"
             placeholder="Search by diner, code, phone..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-obsidian/70 border border-gold/25 text-ivory p-2.5 pl-8 text-xs font-sans rounded-xs placeholder:text-ivory/40 focus:outline-none focus:border-gold"
+            className="w-full bg-obsidian/70 border border-gold/25 text-ivory p-2 sm:p-2.5 pl-8 text-xs font-sans rounded-xs placeholder:text-ivory/40 focus:outline-none focus:border-gold"
           />
           <svg
             className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-gold/60"
@@ -383,17 +385,17 @@ function ReservationCard({
 
   return (
     <div
-      className={`bg-obsidian/60 border border-gold/15 ${currentStatusInfo.border} rounded-xs p-5 transition-all duration-300 hover:border-gold/30 hover:bg-obsidian/85 flex flex-col lg:flex-row lg:items-center justify-between gap-4`}
+      className={`bg-obsidian/60 border border-gold/15 ${currentStatusInfo.border} rounded-xs p-3.5 sm:p-5 transition-all duration-300 hover:border-gold/30 hover:bg-obsidian/85 flex flex-col lg:flex-row lg:items-center justify-between gap-4`}
     >
       {/* Left: Diner Info & Identity */}
-      <div className="flex-1 space-y-2">
-        <div className="flex flex-wrap items-center gap-2.5">
+      <div className="flex-1 space-y-2 min-w-0">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
           {/* Reference Code Pill */}
           <button
             type="button"
             onClick={() => onCopy(r.reference_code)}
             title="Click to copy reference"
-            className="font-mono text-xs text-gold/90 bg-espresso/50 border border-gold/30 px-2 py-0.5 rounded-xs hover:bg-gold hover:text-obsidian transition-colors inline-flex items-center gap-1.5"
+            className="font-mono text-xs text-gold/90 bg-espresso/50 border border-gold/30 px-2 py-0.5 rounded-xs hover:bg-gold hover:text-obsidian transition-colors inline-flex items-center gap-1.5 shrink-0"
           >
             <span>{r.reference_code}</span>
             <span className="text-[10px] opacity-70">
@@ -402,7 +404,7 @@ function ReservationCard({
           </button>
 
           {/* Status Badge */}
-          <span className={`text-[10px] uppercase tracking-wider font-sans px-2.5 py-0.5 rounded-xs ${currentStatusInfo.badge}`}>
+          <span className={`text-[10px] uppercase tracking-wider font-sans px-2.5 py-0.5 rounded-xs shrink-0 ${currentStatusInfo.badge}`}>
             {currentStatusInfo.label}
           </span>
 
@@ -411,7 +413,7 @@ function ReservationCard({
             type="button"
             onClick={() => onToggleVip(r.guest_id, r.vip_status || 0)}
             title={isVip ? 'VIP guest (Click to revoke)' : 'Standard guest (Click to mark VIP)'}
-            className={`text-[10px] uppercase tracking-wider font-sans px-2 py-0.5 rounded-xs transition-colors flex items-center gap-1 ${
+            className={`text-[10px] uppercase tracking-wider font-sans px-2 py-0.5 rounded-xs transition-colors flex items-center gap-1 shrink-0 ${
               isVip
                 ? 'bg-amber-400 text-obsidian font-bold shadow-sm'
                 : 'bg-obsidian border border-gold/20 text-ivory/50 hover:text-gold'
@@ -422,17 +424,17 @@ function ReservationCard({
           </button>
 
           {/* Space / Room Badge */}
-          <span className="text-[10px] uppercase tracking-wider text-ivory/70 bg-espresso/30 border border-gold/15 px-2 py-0.5 rounded-xs">
+          <span className="text-[10px] uppercase tracking-wider text-ivory/70 bg-espresso/30 border border-gold/15 px-2 py-0.5 rounded-xs shrink-0 truncate">
             {SPACE_LABELS[r.space_id] || r.space_id}
           </span>
         </div>
 
         {/* Diner Name & Party Size */}
-        <div className="flex items-baseline gap-3">
-          <h3 className="font-serif text-xl sm:text-2xl text-ivory font-light">
+        <div className="flex items-baseline gap-2 sm:gap-3 flex-wrap">
+          <h3 className="font-serif text-lg sm:text-xl md:text-2xl text-ivory font-light truncate">
             {r.guest_name}
           </h3>
-          <span className="font-sans text-xs text-gold font-medium">
+          <span className="font-sans text-xs text-gold font-medium shrink-0">
             {r.party_size} {r.party_size === 1 ? 'Cover' : 'Covers'}
           </span>
         </div>
@@ -443,7 +445,7 @@ function ReservationCard({
             {dietaryAlerts.map((alert, idx) => (
               <span
                 key={idx}
-                className={`text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded-xs font-semibold ${
+                className={`text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded-xs font-semibold shrink-0 ${
                   alert.severity === 'CRITICAL'
                     ? 'bg-rose-500/25 text-rose-300 border border-rose-500/50'
                     : alert.severity === 'WARNING'
@@ -458,38 +460,38 @@ function ReservationCard({
         )}
 
         {/* Contact info & timings */}
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs font-sans text-ivory/70">
-          <div className="flex items-center gap-1.5 text-gold/90">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-xs font-sans text-ivory/70">
+          <div className="flex items-center gap-1.5 text-gold/90 shrink-0">
             <span>📅 {r.date}</span>
             <span>·</span>
             <span>⏰ {r.time_slot}</span>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <a href={`tel:${r.guest_phone}`} className="hover:text-gold transition-colors">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <a href={`tel:${r.guest_phone}`} className="hover:text-gold transition-colors shrink-0">
               📞 {r.guest_phone}
             </a>
-            <span>·</span>
-            <a href={`mailto:${r.guest_email}`} className="hover:text-gold transition-colors">
+            <span className="hidden sm:inline">·</span>
+            <a href={`mailto:${r.guest_email}`} className="hover:text-gold transition-colors truncate max-w-[180px] sm:max-w-none inline-block">
               ✉️ {r.guest_email}
             </a>
-            <span>·</span>
+          </div>
+          <div className="flex items-center gap-2 flex-wrap pt-0.5 sm:pt-0">
             <a
               href={`https://wa.me/${r.guest_phone.replace(/\D/g, '')}?text=${encodeURIComponent(
                 `*MEHRAAB Fine Dining*\nHonored ${r.guest_name}, your table (${r.reference_code}) is confirmed for ${r.date} at ${r.time_slot} (${r.party_size} guests, ${SPACE_LABELS[r.space_id] || r.space_id}).\n\nComplimentary valet parking at Heritage Gate, 14 Calicut Road, Ballard Estate, Mumbai.\nDirect Concierge: +91 (022) 4920 1800`
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-medium bg-emerald-950/40 px-2 py-0.5 rounded-xs border border-emerald-500/30"
+              className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center gap-1 font-medium bg-emerald-950/40 px-2 py-0.5 rounded-xs border border-emerald-500/30 text-[11px]"
               title="Open pre-composed WhatsApp concierge confirmation"
             >
               <span>💬 WhatsApp</span>
             </a>
-            <span>·</span>
             <a
               href={`sms:${r.guest_phone.replace(/[^\d+]/g, '')}?body=${encodeURIComponent(
                 `[MEHRAAB] Honored ${r.guest_name}, your table (${r.reference_code}) is confirmed for ${r.date} at ${r.time_slot} (${r.party_size} guests). Valet: Ballard Estate Heritage Gate. Concierge: +912249201800`
               )}`}
-              className="text-gold hover:text-ivory transition-colors flex items-center gap-1 bg-espresso/40 px-2 py-0.5 rounded-xs border border-gold/30"
+              className="text-gold hover:text-ivory transition-colors flex items-center gap-1 bg-espresso/40 px-2 py-0.5 rounded-xs border border-gold/30 text-[11px]"
               title="Open pre-composed native SMS message"
             >
               <span>📲 Native SMS</span>
@@ -508,12 +510,12 @@ function ReservationCard({
       </div>
 
       {/* Right: Action Buttons */}
-      <div className="flex flex-wrap items-center gap-2 border-t lg:border-t-0 border-gold/10 pt-3 lg:pt-0">
+      <div className="flex flex-wrap items-center gap-2 border-t lg:border-t-0 border-gold/10 pt-3 lg:pt-0 w-full lg:w-auto">
         {r.status === 'PENDING' && (
           <button
             type="button"
             onClick={() => onStatusChange(r.id, 'CONFIRMED')}
-            className="px-4 py-2 bg-gold text-obsidian font-sans text-xs uppercase tracking-wider font-semibold hover:bg-ivory transition-colors rounded-xs shadow-sm"
+            className="flex-1 sm:flex-none justify-center px-4 py-2 bg-gold text-obsidian font-sans text-xs uppercase tracking-wider font-semibold hover:bg-ivory transition-colors rounded-xs shadow-sm text-center"
           >
             Confirm Table
           </button>
@@ -523,7 +525,7 @@ function ReservationCard({
           <button
             type="button"
             onClick={() => onStatusChange(r.id, 'SEATED')}
-            className="px-4 py-2 bg-emerald-600 text-ivory font-sans text-xs uppercase tracking-wider font-semibold hover:bg-emerald-500 transition-colors rounded-xs shadow-sm flex items-center gap-1.5"
+            className="flex-1 sm:flex-none justify-center px-4 py-2 bg-emerald-600 text-ivory font-sans text-xs uppercase tracking-wider font-semibold hover:bg-emerald-500 transition-colors rounded-xs shadow-sm flex items-center gap-1.5"
           >
             <span>🍽️</span>
             <span>Seat Diner</span>
@@ -534,7 +536,7 @@ function ReservationCard({
           <button
             type="button"
             onClick={() => onStatusChange(r.id, 'COMPLETED')}
-            className="px-4 py-2 bg-zinc-700 text-ivory font-sans text-xs uppercase tracking-wider hover:bg-zinc-600 transition-colors rounded-xs"
+            className="flex-1 sm:flex-none justify-center px-4 py-2 bg-zinc-700 text-ivory font-sans text-xs uppercase tracking-wider hover:bg-zinc-600 transition-colors rounded-xs text-center"
           >
             Complete Service
           </button>
@@ -544,7 +546,7 @@ function ReservationCard({
           <button
             type="button"
             onClick={() => onStatusChange(r.id, 'CANCELLED')}
-            className="px-3 py-2 border border-rose-500/30 text-rose-300 hover:bg-rose-950/40 text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
+            className="flex-1 sm:flex-none justify-center px-3 py-2 border border-rose-500/30 text-rose-300 hover:bg-rose-950/40 text-xs font-sans uppercase tracking-wider rounded-xs transition-colors text-center"
           >
             Cancel
           </button>
@@ -554,7 +556,7 @@ function ReservationCard({
           <button
             type="button"
             onClick={() => onStatusChange(r.id, 'PENDING')}
-            className="px-3 py-2 border border-gold/30 text-gold hover:bg-gold/10 text-xs font-sans uppercase tracking-wider rounded-xs transition-colors"
+            className="flex-1 sm:flex-none justify-center px-3 py-2 border border-gold/30 text-gold hover:bg-gold/10 text-xs font-sans uppercase tracking-wider rounded-xs transition-colors text-center"
           >
             Reopen
           </button>
@@ -569,7 +571,7 @@ function ReservationCard({
             }
           }}
           title="Delete booking record"
-          className="p-2 text-ivory/40 hover:text-rose-400 transition-colors rounded-xs"
+          className="p-2 text-ivory/40 hover:text-rose-400 transition-colors rounded-xs shrink-0 ml-auto sm:ml-0"
         >
           🗑️
         </button>

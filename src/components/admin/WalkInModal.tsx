@@ -67,24 +67,24 @@ export function WalkInModal({ isOpen, onClose, onSuccess }: WalkInModalProps) {
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-obsidian/90 backdrop-blur-md"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-obsidian/90 backdrop-blur-md"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-lg bg-[#1c1c1c] border border-gold/40 rounded-xs p-6 sm:p-8 shadow-2xl shadow-obsidian text-left overflow-y-auto max-h-[92vh]"
+        className="relative w-full max-w-lg bg-[#1c1c1c] border border-gold/40 rounded-xs p-4 sm:p-6 lg:p-8 shadow-2xl shadow-obsidian text-left overflow-y-auto max-h-[92vh]"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between pb-4 border-b border-gold/20 mb-6">
+        <div className="flex items-center justify-between pb-3 sm:pb-4 border-b border-gold/20 mb-4 sm:mb-6">
           <div>
             <span className="text-[10px] uppercase tracking-[0.25em] text-gold font-sans block mb-1">
               Direct Front-of-House Booking
             </span>
-            <h3 className="font-serif text-2xl text-ivory">Record Walk-in / Phone Reservation</h3>
+            <h3 className="font-serif text-xl sm:text-2xl text-ivory">Record Walk-in / Phone Reservation</h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="w-8 h-8 rounded-full border border-gold/30 text-ivory hover:text-gold flex items-center justify-center transition-colors"
+            className="w-8 h-8 rounded-full border border-gold/30 text-ivory hover:text-gold flex items-center justify-center transition-colors shrink-0 ml-2"
           >
             ✕
           </button>
@@ -142,7 +142,7 @@ export function WalkInModal({ isOpen, onClose, onSuccess }: WalkInModalProps) {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-[10px] uppercase tracking-[0.2em] text-gold font-sans mb-1.5">
                 Covers (Guests)
