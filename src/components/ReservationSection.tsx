@@ -1,4 +1,7 @@
 import { useState, type FormEvent } from 'react'
+import { InteractiveFloorplan } from './floorplan/InteractiveFloorplan'
+import { DigitalDiningPass } from './common/DigitalDiningPass'
+import type { TableSpot, PavilionFloorplan } from '../data/floorplanData'
 
 interface BookingData {
   guests: number
@@ -27,37 +30,74 @@ const SPACES = [
   { id: 'parda', label: 'The Parda Salon', desc: 'Private Dining (Up to 16)' },
 ]
 
+function getTomorrowDate(): string {
+  const d = new Date()
+  d.setDate(d.getDate() + 1)
+  return d.toISOString().split('T')[0]
+}
+
+function getTodayDate(): string {
+  return new Date().toISOString().split('T')[0]
+}
+
 export function ReservationSection() {
-  const [formData, setFormData] = useState<BookingData>({
+  const [formData, setFormData] = useState<BookingData>(() => ({
     guests: 2,
-    date: new Date(Date.now() + 86400000).toISOString().split('T')[0], // tomorrow as default
+    date: getTomorrowDate(),
     time: '20:00',
     space: 'grand-hall',
     name: '',
     email: '',
     phone: '',
     notes: '',
-  })
+  }))
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [confirmedReference, setConfirmedReference] = useState('')
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const [isFloorplanOpen, setIsFloorplanOpen] = useState(false)
+  const [selectedTableInfo, setSelectedTableInfo] = useState<string | null>(null)
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setErrorMessage(null)
 
-    // Simulate luxury concierge API submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const response = await fetch('/api/reservations', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      const result = await response.json()
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to submit reservation request.')
+      }
+
+      setConfirmedReference(result.referenceCode)
       setIsSubmitted(true)
-    }, 700)
+    } catch (err: unknown) {
+      console.error('Reservation booking error:', err)
+      setErrorMessage(
+        err instanceof Error
+          ? err.message
+          : 'Unable to reach the concierge desk. Please try again or contact us directly.'
+      )
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleReset = () => {
     setIsSubmitted(false)
+    setConfirmedReference('')
+    setErrorMessage(null)
+    setSelectedTableInfo(null)
     setFormData({
       guests: 2,
-      date: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+      date: getTomorrowDate(),
       time: '20:00',
       space: 'grand-hall',
       name: '',
@@ -65,6 +105,18 @@ export function ReservationSection() {
       phone: '',
       notes: '',
     })
+  }
+
+  const handleFloorplanSelect = (table: TableSpot, pavilion: PavilionFloorplan) => {
+    setFormData((prev) => ({
+      ...prev,
+      space: pavilion.id,
+      notes: prev.notes
+        ? `${prev.notes} [Table: ${table.number} (${table.name})]`
+        : `[Table: ${table.number} (${table.name})]`,
+    }))
+    setSelectedTableInfo(`${pavilion.name} · ${table.number} (${table.name})`)
+    setIsFloorplanOpen(false)
   }
 
   return (
@@ -118,30 +170,24 @@ export function ReservationSection() {
                   <h3 className="font-serif text-3xl sm:text-4xl text-ivory">
                     We look forward to welcoming you, {formData.name}.
                   </h3>
-                  <p className="font-sans text-xs text-gold/80 font-mono tracking-widest">
-                    REFERENCE: MHR-2026-{Math.floor(1000 + Math.random() * 9000)}
+                  <p className="font-sans text-xs text-gold/90 font-mono tracking-widest">
+                    REFERENCE: {confirmedReference || 'MHR-2026-CONFIRMED'}
                   </p>
                 </div>
 
-                <div className="max-w-md mx-auto bg-obsidian/70 border border-gold/20 p-6 rounded-xs text-left text-xs font-sans space-y-2.5">
-                  <div className="flex justify-between border-b border-gold/10 pb-2">
-                    <span className="text-ivory/60">Guests:</span>
-                    <span className="text-ivory font-medium">{formData.guests} Guest(s)</span>
-                  </div>
-                  <div className="flex justify-between border-b border-gold/10 pb-2">
-                    <span className="text-ivory/60">Date & Time:</span>
-                    <span className="text-ivory font-medium">{formData.date} at {formData.time}</span>
-                  </div>
-                  <div className="flex justify-between border-b border-gold/10 pb-2">
-                    <span className="text-ivory/60">Pavilion:</span>
-                    <span className="text-gold font-medium">
-                      {SPACES.find((s) => s.id === formData.space)?.label}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-ivory/60">Confirmation sent to:</span>
-                    <span className="text-ivory font-medium">{formData.email}</span>
-                  </div>
+                {/* Digital Dining Pass with 1-Click Calendar Sync */}
+                <div className="max-w-xl mx-auto text-left">
+                  <DigitalDiningPass
+                    details={{
+                      referenceCode: confirmedReference || 'MHR-2026-CONFIRMED',
+                      guestName: formData.name,
+                      partySize: formData.guests,
+                      date: formData.date,
+                      timeSlot: formData.time,
+                      spaceName: SPACES.find((s) => s.id === formData.space)?.label || formData.space,
+                      specialNotes: formData.notes,
+                    }}
+                  />
                 </div>
 
                 <p className="font-sans text-xs text-ivory/70 max-w-md mx-auto leading-relaxed font-light">
@@ -199,7 +245,7 @@ export function ReservationSection() {
                       required
                       value={formData.date}
                       onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                      min={new Date().toISOString().split('T')[0]}
+                      min={getTodayDate()}
                       className="w-full bg-obsidian/60 border border-gold/25 text-ivory p-3.5 text-xs font-sans rounded-xs focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold"
                     />
                   </div>
@@ -228,9 +274,35 @@ export function ReservationSection() {
 
                 {/* Step 3: Space Preference */}
                 <div>
-                  <label className="block text-xs uppercase tracking-[0.25em] text-gold font-sans mb-3">
-                    04 · Preferred Pavilion or Room
-                  </label>
+                  <div className="flex items-center justify-between mb-3">
+                    <label className="block text-xs uppercase tracking-[0.25em] text-gold font-sans">
+                      04 · Preferred Pavilion or Room
+                    </label>
+                    <button
+                      type="button"
+                      onClick={() => setIsFloorplanOpen(true)}
+                      className="inline-flex items-center gap-1.5 text-[11px] font-sans text-gold hover:text-ivory uppercase tracking-wider bg-gold/10 hover:bg-gold/20 border border-gold/30 px-2.5 py-1 rounded-xs transition-colors"
+                    >
+                      <span>🗺️ View Floorplan</span>
+                    </button>
+                  </div>
+
+                  {selectedTableInfo && (
+                    <div className="mb-3 p-2.5 bg-gold/15 border border-gold/40 text-gold text-xs font-sans rounded-xs flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-gold" />
+                        <span>Pre-selected Table: <strong>{selectedTableInfo}</strong></span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedTableInfo(null)}
+                        className="text-gold/70 hover:text-gold text-[10px] uppercase tracking-wider"
+                      >
+                        Reset
+                      </button>
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {SPACES.map((space) => {
                       const isSelected = formData.space === space.id
@@ -309,6 +381,14 @@ export function ReservationSection() {
                   />
                 </div>
 
+                {/* Error Banner */}
+                {errorMessage && (
+                  <div className="p-3 bg-red-950/40 border border-red-500/30 text-red-200 text-xs font-sans rounded-xs flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-400 shrink-0" />
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 {/* Submit Button */}
                 <div className="pt-2">
                   <button
@@ -385,6 +465,16 @@ export function ReservationSection() {
           </div>
         </div>
       </div>
+
+      {/* Interactive Architectural Floorplan Modal */}
+      {isFloorplanOpen && (
+        <InteractiveFloorplan
+          isModal
+          initialPavilionId={formData.space}
+          onClose={() => setIsFloorplanOpen(false)}
+          onSelectTable={handleFloorplanSelect}
+        />
+      )}
     </section>
   )
 }

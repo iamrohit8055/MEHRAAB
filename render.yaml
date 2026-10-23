@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: mehraab-fine-dining
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: JWT_SECRET
+        generateValue: true
+      - key: RESEND_API_KEY
+        sync: false
+    disk:
+      name: mehraab-db
+      mountPath: /app/server
+      sizeGB: 1

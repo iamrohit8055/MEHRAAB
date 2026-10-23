@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { BrandLogo } from './BrandLogo'
+import { useNavigation } from '../hooks/useNavigation'
 
 interface NavItem {
   label: string
@@ -11,9 +12,11 @@ const NAV_ITEMS: NavItem[] = [
   { label: 'Culinary Menu', href: '#menu' },
   { label: 'Architecture', href: '#architecture' },
   { label: 'Private Dining', href: '#private-dining' },
+  { label: 'Find Booking', href: '#lookup' },
 ]
 
 export function Navbar() {
+  const { navigateTo } = useNavigation()
   const [isOpen, setIsOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
@@ -80,8 +83,10 @@ export function Navbar() {
           ))}
         </nav>
 
-        {/* Right Action: Table Reservation CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Right Action: Table Reservation & Lookup CTA */}
+        <div className="hidden md:flex items-center gap-3">
+          
+
           <a
             href="#reservations"
             className="relative inline-flex items-center justify-center px-6 py-2.5 overflow-hidden font-sans text-xs uppercase tracking-[0.22em] text-gold border border-gold/50 rounded-xs transition-all duration-500 ease-out hover:text-obsidian group"
@@ -146,7 +151,30 @@ export function Navbar() {
         </div>
 
         {/* Mobile Drawer Footer with Details & CTA */}
-        <div className="flex flex-col gap-6 border-t border-gold/15 pt-6">
+        <div className="flex flex-col gap-5 border-t border-gold/15 pt-5">
+          <div className="grid grid-cols-2 gap-3 text-xs font-sans">
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false)
+                navigateTo('lookup')
+              }}
+              className="py-2.5 px-3 border border-gold/30 text-gold uppercase tracking-wider text-[11px] rounded-xs text-center hover:bg-gold/10"
+            >
+              Find Booking
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setIsOpen(false)
+                navigateTo('admin')
+              }}
+              className="py-2.5 px-3 border border-gold/20 text-ivory/70 uppercase tracking-wider text-[11px] rounded-xs text-center hover:text-gold"
+            >
+              Maître D' Portal
+            </button>
+          </div>
+
           <div className="space-y-1 text-xs font-sans text-ivory/60 font-light">
             <p className="text-gold uppercase tracking-wider text-[11px]">Timings</p>
             <p>Café: 08:00 — 16:00 · Fine Dining: 18:30 — 23:30</p>

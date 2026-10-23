@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { MENU_CATEGORIES, SIGNATURE_DISHES, type MenuItem } from '../data/menuData'
+import { TastingMenuModal } from './menu/TastingMenuModal'
 
 const ACCOLADES = [
   {
@@ -22,6 +23,19 @@ const ACCOLADES = [
 export function CulinaryMenu() {
   const [activeCategory, setActiveCategory] = useState<string>('all')
   const [selectedDish, setSelectedDish] = useState<MenuItem | null>(null)
+  const [isTastingMenuOpen, setIsTastingMenuOpen] = useState(false)
+
+  // Auto-open modal if URL hash is #tasting-menu-pdf
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#tasting-menu-pdf') {
+        setIsTastingMenuOpen(true)
+      }
+    }
+    checkHash()
+    window.addEventListener('hashchange', checkHash)
+    return () => window.removeEventListener('hashchange', checkHash)
+  }, [])
 
   const filteredDishes =
     activeCategory === 'all'
@@ -169,11 +183,21 @@ export function CulinaryMenu() {
                 Inquire For Chef's Table
               </a>
               <a
-                href="#tasting-menu-pdf"
-                className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 border border-gold/40 text-gold font-sans text-xs uppercase tracking-[0.22em] hover:bg-gold/10 transition-colors duration-300"
+                href="/mehraab-autumn-tasting-menu.pdf"
+                download="MEHRAAB-Autumn-Tasting-Menu-2026.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-gold/40 text-gold font-sans text-xs uppercase tracking-[0.22em] hover:bg-gold hover:text-obsidian transition-all duration-300"
               >
-                Download Autumn Tasting Menu (PDF)
+                <span>📥 Download Autumn Tasting Menu (PDF)</span>
               </a>
+              <button
+                type="button"
+                onClick={() => setIsTastingMenuOpen(true)}
+                className="text-xs uppercase tracking-[0.2em] font-sans text-ivory/60 hover:text-gold transition-colors underline underline-offset-4 py-2"
+              >
+                Preview Carte Online
+              </button>
             </div>
           </div>
         </div>
@@ -282,6 +306,21 @@ export function CulinaryMenu() {
           </div>
         </div>
       )}
+
+      {/* Autumn Tasting Menu Carte & PDF Print Modal */}
+      <TastingMenuModal
+        isOpen={isTastingMenuOpen}
+        onClose={() => {
+          setIsTastingMenuOpen(false)
+          if (window.location.hash === '#tasting-menu-pdf') {
+            window.history.pushState(null, '', '#menu')
+          }
+        }}
+        onReserve={() => {
+          const el = document.getElementById('reservations')
+          if (el) el.scrollIntoView({ behavior: 'smooth' })
+        }}
+      />
     </section>
   )
 }

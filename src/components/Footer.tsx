@@ -1,7 +1,9 @@
 import { useState, type FormEvent } from 'react'
 import { BrandLogo } from './BrandLogo'
+import { useNavigation } from '../hooks/useNavigation'
 
 export function Footer() {
+  const { navigateTo } = useNavigation()
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
 
@@ -78,6 +80,24 @@ export function Footer() {
                   <a href="#reservations" className="hover:text-gold transition-colors">
                     Reservations
                   </a>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => navigateTo('lookup')}
+                    className="hover:text-gold transition-colors text-gold/80"
+                  >
+                    Track Booking ↗
+                  </button>
+                </li>
+                <li>
+                  <button
+                    type="button"
+                    onClick={() => navigateTo('admin')}
+                    className="hover:text-gold transition-colors text-ivory/50 hover:text-ivory"
+                  >
+                    Maître D' Portal ↗
+                  </button>
                 </li>
               </ul>
             </div>

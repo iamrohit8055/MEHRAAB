@@ -33,3 +33,63 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Print optimization for tasting menu and receipts */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+  }
+
+  header,
+  footer,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  [role="dialog"] {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    inset: auto !important;
+  }
+
+  [role="dialog"] > div {
+    background-color: #ffffff !important;
+    color: #171717 !important;
+    border: 1px solid #B99A68 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    padding: 24px !important;
+  }
+
+  [role="dialog"] h2,
+  [role="dialog"] h3,
+  [role="dialog"] .text-ivory {
+    color: #171717 !important;
+  }
+
+  [role="dialog"] .text-gold {
+    color: #8c6d3b !important;
+  }
+
+  [role="dialog"] .bg-obsidian,
+  [role="dialog"] .bg-espresso\/30,
+  [role="dialog"] .bg-obsidian\/70 {
+    background-color: #f8f6f0 !important;
+    border-color: #d1c4b0 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  tr,
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}

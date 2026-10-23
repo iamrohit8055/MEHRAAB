@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MEHRAAB — Autumn Tasting Menu Carte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #141312;
+      color: #F0E8DC;
+      font-family: 'Manrope', -apple-system, sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .page {
+      width: 210mm;
+      height: 297mm;
+      padding: 16mm 16mm;
+      position: relative;
+      page-break-after: always;
+      background: radial-gradient(circle at 50% 30%, #1e1b18 0%, #141312 85%);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+    .border-frame {
+      position: absolute;
+      inset: 8mm;
+      border: 1px solid rgba(185, 154, 104, 0.4);
+      pointer-events: none;
+    }
+    .border-frame-inner {
+      position: absolute;
+      inset: 10mm;
+      border: 0.5px solid rgba(185, 154, 104, 0.2);
+      pointer-events: none;
+    }
+    /* Arch corner ornaments */
+    .corner {
+      position: absolute;
+      width: 14mm;
+      height: 14mm;
+      border-color: #B99A68;
+      border-style: solid;
+      pointer-events: none;
+    }
+    .corner-tl { top: 8mm; left: 8mm; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 8mm; right: 8mm; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 8mm; left: 8mm; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 8mm; right: 8mm; border-width: 0 2px 2px 0; }
+
+    .header-logo {
+      text-align: center;
+      margin-top: 4mm;
+    }
+    .arch-svg {
+      width: 28px;
+      height: 34px;
+      margin: 0 auto 3mm;
+      display: block;
+    }
+    .brand-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26pt;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #F0E8DC;
+    }
+    .brand-sub {
+      font-size: 7pt;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: #B99A68;
+      margin-top: 1mm;
+      font-weight: 400;
+    }
+    .menu-heading-box {
+      text-align: center;
+      margin: 4mm auto 5mm;
+      max-width: 160mm;
+    }
+    .degustation-badge {
+      font-size: 7.5pt;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: #B99A68;
+      display: block;
+      margin-bottom: 1.5mm;
+    }
+    .degustation-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20pt;
+      font-weight: 400;
+      color: #F0E8DC;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+    .degustation-meta {
+      font-size: 7pt;
+      letter-spacing: 0.25em;
+      color: rgba(240, 232, 220, 0.6);
+      text-transform: uppercase;
+      margin-top: 1.5mm;
+    }
+    .pricing-ribbon {
+      margin-top: 2.5mm;
+      padding-top: 2.5mm;
+      border-top: 0.5px solid rgba(185, 154, 104, 0.25);
+      font-size: 7pt;
+      letter-spacing: 0.2em;
+      color: #B99A68;
+      text-transform: uppercase;
+    }
+
+    .courses-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.8mm;
+      flex: 1;
+      justify-content: space-around;
+      padding: 0 4mm;
+    }
+    .course-item {
+      padding-bottom: 2.8mm;
+      border-bottom: 0.5px solid rgba(185, 154, 104, 0.15);
+    }
+    .course-item:last-child {
+      border-bottom: none;
+    }
+    .course-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 1mm;
+    }
+    .course-number {
+      font-size: 6.5pt;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #B99A68;
+      font-weight: 600;
+    }
+    .course-category {
+      font-size: 6.5pt;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240, 232, 220, 0.5);
+    }
+    .course-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13.5pt;
+      font-weight: 500;
+      color: #F0E8DC;
+      letter-spacing: 0.03em;
+      line-height: 1.15;
+    }
+    .course-sub {
+      font-size: 7pt;
+      color: rgba(185, 154, 104, 0.85);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.5mm;
+    }
+    .course-desc {
+      font-size: 7.2pt;
+      line-height: 1.45;
+      color: rgba(240, 232, 220, 0.72);
+      font-weight: 300;
+      margin-top: 1mm;
+    }
+    .course-pairings {
+      margin-top: 1.5mm;
+      display: flex;
+      gap: 3mm;
+      font-size: 6.5pt;
+    }
+    .pairing-tag {
+      background: rgba(30, 25, 22, 0.6);
+      border: 0.5px solid rgba(185, 154, 104, 0.3);
+      padding: 1mm 2.5mm;
+      border-radius: 1px;
+      color: rgba(240, 232, 220, 0.85);
+    }
+    .pairing-tag strong {
+      color: #B99A68;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-bar {
+      text-align: center;
+      padding-top: 3mm;
+      border-top: 0.5px solid rgba(185, 154, 104, 0.25);
+      font-size: 6.5pt;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(240, 232, 220, 0.5);
+      margin-bottom: 2mm;
+    }
+    .footer-bar strong {
+      color: #B99A68;
+    }
+
+    .ritual-box {
+      margin: 2mm 4mm;
+      padding: 3mm 4mm;
+      background: rgba(45, 30, 25, 0.35);
+      border: 0.5px solid rgba(185, 154, 104, 0.3);
+      text-align: center;
+    }
+    .ritual-title {
+      font-size: 6.5pt;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #B99A68;
+    }
+    .ritual-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 11pt;
+      color: #F0E8DC;
+      margin-top: 0.5mm;
+    }
+    .ritual-desc {
+      font-size: 6.5pt;
+      color: rgba(240, 232, 220, 0.7);
+      margin-top: 0.5mm;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1: Courses 1 to 4 -->
+  <div class="page">
+    <div class="border-frame"></div>
+    <div class="border-frame-inner"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="header-logo">
+      <svg class="arch-svg" viewBox="0 0 48 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M 6 54 V 28 C 6 15 16 7 24 2 C 32 7 42 15 42 28 V 54" stroke="#B99A68" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M 12 54 V 30 C 12 20 18 13 24 9 C 30 13 36 20 36 30 V 54" stroke="#B99A68" stroke-width="1" stroke-opacity="0.6"/>
+        <circle cx="24" cy="9" r="1.5" fill="#B99A68"/>
+        <path d="M 24 2 V 6" stroke="#B99A68" stroke-width="1.5"/>
+        <path d="M 3 54 H 45" stroke="#B99A68" stroke-width="1.2"/>
+      </svg>
+      <div class="brand-title">Mehraab</div>
+      <div class="brand-sub">Café · Cuisine · Culture · Mumbai</div>
+    </div>
+
+    <div class="menu-heading-box">
+      <span class="degustation-badge">The Seven-Course Odyssey · Carte D'Automne 2026</span>
+      <h1 class="degustation-title">A Symphony of Smoke, Spice & Sacred Heritage</h1>
+      <p class="degustation-meta">Curated by Executive Chef Samarpan Roy · Head Sommelier Kavita Rao</p>
+      <div class="pricing-ribbon">
+        Tasting Sequence: ₹6,500 &nbsp;·&nbsp; Paired Cellar Flight: ₹3,800 &nbsp;·&nbsp; Twilight & Prime Seating
+      </div>
+    </div>
+
+    <div class="courses-list">
+      <!-- Course 01 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 01 · Prarambh</span>
+          <span class="course-category">The Awakening Amuse-Bouche</span>
+        </div>
+        <div class="course-name">Kokum & Damask Wild Rose Sphere</div>
+        <div class="course-sub">Flash-Chilled Kokum Foam · Himalayan Black Salt Pearl · Cold-Pressed Mint Oil</div>
+        <div class="course-desc">A single crystalline orb of chilled coastal kokum nectar, cold-pressed mint oil, and crushed rock salt that dissolves weightlessly upon the palate.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> NV Drappier Brut Nature Zero Dosage Champagne</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Kashmiri Kahwa & Spiced Wild Melon Nectar</span>
+        </div>
+      </div>
+
+      <!-- Course 02 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 02 · Samudra</span>
+          <span class="course-category">Coastal Trade Route Progression</span>
+        </div>
+        <div class="course-name">Malabar Diver Scallop & Totapuri Raw Mango</div>
+        <div class="course-sub">Thinly Cured Arabian Scallops · Coconut Water Foam · Crackled Curry Leaf</div>
+        <div class="course-desc">Coastal scallops flash-cured in raw mango vinegar, chilled coconut water emulsion, tempered black mustard seed crackle, and sea purslane.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2022 Domaine Sigalas Assyrtiko · Santorini, Greece</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Lemongrass, Kaffir & Chilled Wild Coconut Highball</span>
+        </div>
+      </div>
+
+      <!-- Course 03 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 03 · Krishi</span>
+          <span class="course-category">Street Heritage Elevation</span>
+        </div>
+        <div class="course-name">Hass Avocado & Winter Truffle Bhel</div>
+        <div class="course-sub">Puffed Red Wild Rice · Date-Tamarind Pearls · Shaved Summer Truffle</div>
+        <div class="course-desc">Crisp roasted heirloom red rice tossed with ripe Hass avocado, tart green mango brunoise, tamarind sphere pearls, and freshly shaved black truffle.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2021 Schloss Gobelsburg Grüner Veltliner · Kamptal, Austria</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Makaibari Single-Estate Sparkling Darjeeling White Tea</span>
+        </div>
+      </div>
+
+      <!-- Course 04 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 04 · Jungle</span>
+          <span class="course-category">Wild Himalayan Terroir</span>
+        </div>
+        <div class="course-name">Foraged Kashmiri Gucchi & Morel Rogan Josh</div>
+        <div class="course-sub">Smoked Buffalo Milk Paneer · Crushed Pine Nuts · Saffron Ratanjot Broth</div>
+        <div class="course-desc">Hand-stuffed wild Himalayan morels slow-braised for six uninterrupted hours in sealed brass degchis with single-origin ratanjot bark and mace reduction.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2019 Domaine de Chevalier · Pessac-Léognan, Grand Cru Bordeaux</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Smoked Himalayan Walnut & Mulberry Infusion</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Part I of The Mehraab Odyssey &nbsp;·&nbsp; <strong>Ballard Estate, Fort, Mumbai</strong></span>
+    </div>
+  </div>
+
+  <!-- PAGE 2: Courses 5 to 7 + Concluding Ceremonies -->
+  <div class="page">
+    <div class="border-frame"></div>
+    <div class="border-frame-inner"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="header-logo" style="margin-top: 4mm;">
+      <div class="brand-title" style="font-size: 20pt;">The Mehraab Odyssey</div>
+      <div class="brand-sub">The Hearth, The Embers & The Confection Finale</div>
+    </div>
+
+    <div class="courses-list" style="margin-top: 4mm;">
+      <!-- Course 05 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 05 · Dastarkhwan</span>
+          <span class="course-category">Royal Court Kitchens of Lucknow</span>
+        </div>
+        <div class="course-name">Awadhi Nalli Nihari & Clay Oven Saffron Taftan</div>
+        <div class="course-sub">Overnight Braised Shank · 32 Potli Spices · Hand-Pulled Earthen Bread</div>
+        <div class="course-desc">Simmered in sealed unglazed clay pots from midnight to dawn, accented with cold-pressed mustard oil, fresh ginger juliennes, and warm saffron-brushed taftan.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2018 Sula Dindori Reserve Shiraz · Nashik Valley, India</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Star Anise, Black Cardamom & Caramelized Fig Shrub</span>
+        </div>
+      </div>
+
+      <!-- Course 06 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 06 · Anugrah</span>
+          <span class="course-category">The Sacred Hearth Signature</span>
+        </div>
+        <div class="course-name">Dal Mehraab (24-Hour Charcoal Smoked)</div>
+        <div class="course-sub">Black Urad Lentils · Cultured Makhan · Damask Rose Petal Dhungar</div>
+        <div class="course-desc">Slow-simmered over live acacia embers for twenty-four hours with hand-churned white butter, finished with an applewood and sun-dried damask rose dhungar table-side.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2017 Marchesi di Barolo Tradizione Nebbiolo · Piedmont, Italy</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Roasted Cardamom, Acacia Smoke & Damask Rose Soda</span>
+        </div>
+      </div>
+
+      <!-- Course 07 -->
+      <div class="course-item">
+        <div class="course-meta-row">
+          <span class="course-number">Course 07 · Shringaar</span>
+          <span class="course-category">The Confection Finale</span>
+        </div>
+        <div class="course-name">Calcuttan Paan & Rose Mille-Feuille</div>
+        <div class="course-sub">Caramelized Pastry · Maghai Paan Crème · Gilded 24K Edible Gold Leaf</div>
+        <div class="course-desc">Paper-thin layers of caramelized puff pastry layered with fragrant betel leaf crème, candied rose gulkand pearls, fennel seed crunch, and pure edible gold leaves.</div>
+        <div class="course-pairings">
+          <span class="pairing-tag"><strong>Wine:</strong> 2017 Royal Tokaji Aszú 5 Puttonyos · Tokaj, Hungary</span>
+          <span class="pairing-tag"><strong>Botanical:</strong> Pashmina Saffron Nectar with Crushed Green Almond Milk</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- The Samovar Ritual -->
+    <div class="ritual-box">
+      <div class="ritual-title">The Concluding Ceremonial Digestif</div>
+      <div class="ritual-name">Pashmina Saffron Qahwah from the Samovar</div>
+      <div class="ritual-desc">
+        Infused live table-side from our 19th-century engraved copper Samovar with Grade-A Pampore saffron threads, wild forest honey, crushed green almonds, and mountain cinnamon barks.
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 3mm 0;">
+      <p style="font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 11pt; color: #B99A68;">
+        “An entrance to extraordinary.”
+      </p>
+      <p style="font-size: 6.5pt; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(240, 232, 220, 0.5); margin-top: 1mm;">
+        Executive Chef Samarpan Roy &nbsp;·&nbsp; Architecture by Studio Mumbai
+      </p>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mehraab House &nbsp;·&nbsp; 14 Calicut Road, Ballard Estate, Fort, Mumbai 400001 &nbsp;·&nbsp; +91 (022) 4920 1800</span>
+    </div>
+  </div>
+
+</body>
+</html>
