@@ -55,11 +55,14 @@ export function Navbar() {
 
   return (
     <header
-      className={`sticky top-0 z-50 w-full transition-all duration-500 ${
-        isScrolled
-          ? 'bg-obsidian/95 backdrop-blur-md border-b border-gold/20 shadow-2xl shadow-obsidian/80 py-3.5'
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        isOpen
+          ? 'bg-[#141210] border-b border-gold/30 shadow-2xl py-4'
+          : isScrolled
+          ? 'bg-[#141210]/95 backdrop-blur-md border-b border-gold/20 shadow-2xl shadow-obsidian/80 py-3.5'
           : 'bg-gradient-to-b from-obsidian/90 via-obsidian/70 to-transparent backdrop-blur-sm border-b border-gold/10 py-5'
       }`}
+      style={isOpen ? { backgroundColor: '#141210' } : undefined}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 flex items-center justify-between">
         {/* Brand Logo & Arch Symbol */}
@@ -125,13 +128,16 @@ export function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Mobile Drawer Overlay - Solid Luxury Dark Obsidian to completely obscure back text */}
       <div
-        className={`md:hidden fixed inset-x-0 top-[65px] bottom-0 bg-obsidian/98 backdrop-blur-xl border-t border-gold/15 transition-all duration-500 ease-in-out flex flex-col justify-between p-8 ${
+        className={`md:hidden fixed inset-x-0 top-full h-[calc(100dvh-100%)] bg-[#141210] border-t border-gold/20 shadow-2xl transition-all duration-300 ease-in-out flex flex-col justify-between p-6 sm:p-8 overflow-y-auto ${
           isOpen
-            ? 'opacity-100 pointer-events-auto translate-y-0'
-            : 'opacity-0 pointer-events-none -translate-y-4'
+            ? 'opacity-100 pointer-events-auto translate-y-0 visible'
+            : 'opacity-0 pointer-events-none -translate-y-2 invisible'
         }`}
+        style={{
+          backgroundColor: '#141210',
+        }}
       >
         <div className="flex flex-col gap-6 pt-4">
           <span className="text-[10px] uppercase tracking-[0.3em] text-gold/60 font-sans border-b border-gold/15 pb-2">
